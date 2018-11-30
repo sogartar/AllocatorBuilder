@@ -1,7 +1,5 @@
 project(ALB)
 
-include_directories("${PROJECT_SOURCE_DIR}/../alb;${PROJECT_SOURCE_DIR}/../alb/internal")
-
 if(WIN32)
   add_definitions(-D_WIN32_WINNT=0x0501)
 endif(WIN32)
@@ -41,9 +39,14 @@ set(HEADERS
   ../alb/internal/traits.hpp
 )
 
-include_directories(${Boost_INCLUDE_DIRS})
-
 add_library(ALB ${SOURCE} ${HEADERS})
+target_include_directories(ALB
+  PUBLIC
+  "${PROJECT_SOURCE_DIR}/.."
+  "${Boost_INCLUDE_DIRS}"
+  PRIVATE
+  "${PROJECT_SOURCE_DIR}/../alb"
+  "${PROJECT_SOURCE_DIR}/../alb/internal"
+  )
 set_property(TARGET ALB PROPERTY CXX_STANDARD 14)
 set_property(TARGET ALB PROPERTY CXX_STANDARD_REQUIRED ON)
-

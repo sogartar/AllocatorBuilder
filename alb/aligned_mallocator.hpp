@@ -12,6 +12,10 @@
 #include "allocator_base.hpp"
 #include "internal/reallocator.hpp"
 
+#ifndef _MSC_VER
+#include <malloc.h>
+#endif
+
 namespace alb {
   inline namespace v_100 {
     /**
