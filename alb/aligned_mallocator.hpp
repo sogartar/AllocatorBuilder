@@ -16,6 +16,8 @@
 #include <malloc.h>
 #endif
 
+#include <cstdint>
+
 namespace alb {
   inline namespace v_100 {
     /**
@@ -54,7 +56,7 @@ namespace alb {
       {
         block reallocatedBlock(::realloc(b.ptr, n));
         if (reallocatedBlock) {
-          if (static_cast<size_t>(b.ptr) % alignment != 0) {
+          if (reinterpret_cast<uintmax_t>(b.ptr) % alignment != 0) {
             auto newAlignedBlock = allocate(n);
             if (!newAlignedBlock) {
               return false;
